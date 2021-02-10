@@ -1,7 +1,8 @@
 {
   "name": "covid-dashboard-scraper",
   "scripts": {
-    "start": "node index.js"
+    "start": "echo 'No default task'",
+    "scrape": "node ./bin/scrape.js"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.4.2",
