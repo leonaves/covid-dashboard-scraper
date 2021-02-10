@@ -4,7 +4,12 @@ const sendgrid = require('@sendgrid/mail');
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 
 const today = new Date();
-const formattedDate = today.toLocaleDateString('en-GB');
+const formattedDate = today.toLocaleDateString('en-GB', {
+  weekday: 'long',
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+});
 
 (async () => {
   const data = await captureWebsite.buffer('https://coronavirus.data.gov.uk/', {
@@ -18,6 +23,7 @@ const formattedDate = today.toLocaleDateString('en-GB');
     to: process.env.RECIPIENT_EMAIL,
     from: process.env.SENDER_EMAIL,
     subject: `Covid dashboard update - ${formattedDate}`,
+    text: 'Daily covid dashboard update attached.',
     attachments: [
       {
         content: data.toString('base64'),
@@ -29,5 +35,10 @@ const formattedDate = today.toLocaleDateString('en-GB');
     ],
   };
 
-  await sendgrid.send(email);
+  try {
+    await sendgrid.send(email);
+  } catch (e) {
+    console.error(e);
+  }
+
 })();
