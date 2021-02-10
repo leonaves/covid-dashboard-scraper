@@ -7,7 +7,12 @@ const today = new Date();
 const formattedDate = today.toLocaleDateString('en-GB');
 
 (async () => {
-  const data = await captureWebsite.buffer('https://coronavirus.data.gov.uk/', { height: 1120 });
+  const data = await captureWebsite.buffer('https://coronavirus.data.gov.uk/', {
+    height: 1120,
+    launchOptions: {
+      args: ['--no-sandbox'],
+    },
+  });
 
   const email = {
     to: process.env.RECIPIENT_EMAIL,
