@@ -1,4 +1,5 @@
 {
+  "name": "Covid Dashboard Scraper",
   "scripts": {
     "start": "node index.js"
   },
